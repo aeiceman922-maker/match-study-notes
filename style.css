@@ -1,0 +1,70 @@
+<script src="script.js"></script>
+</body>
+</html>
+style.css (The Camouflage)
+
+CSS
+body { font-family: 'Times New Roman', serif; margin: 0; background: #fdfdfd; color: #222; }
+nav { background: #1a5f7a; color: white; padding: 12px 30px; font-weight: bold; }
+.content { max-width: 700px; margin: 60px auto; padding: 20px; border-left: 3px solid #eee; }
+.math-box { background: #fff; border: 1px solid #ddd; padding: 30px; text-align: center; font-size: 1.4rem; margin: 25px 0; border-radius: 4px; }
+#secret-trigger { cursor: text; border-bottom: 1px dashed transparent; }
+.hidden { display: none !important; }
+
+/* Hidden Game Hub */
+#game-page { background: #0b0e14; min-height: 100vh; padding: 40px; color: white; font-family: sans-serif; }
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+.card { background: #1c2331; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid #2d3748; }
+.card:hover { border-color: #38bdf8; background: #252f44; }
+
+/* Overlay */
+#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; }
+#game-player { width: 100%; height: 100%; }
+#panic-bar { position: absolute; top: 0; right: 0; background: rgba(0,0,0,0.5); color: #444; padding: 5px; font-size: 10px; pointer-events: none; }
+script.js (The Panic & Logic)
+
+JavaScript
+const games = [
+    { title: "Slope", url: "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/r3333r/slope@main/slope.xml" },
+    { title: "Retro Bowl", url: "https://game316046.konggames.com/gamepro/316046/2/index.html" },
+    { title: "Minecraft", url: "https://classic.minecraft.net" }
+];
+
+const trigger = document.getElementById('secret-trigger');
+const mathPage = document.getElementById('math-page');
+const gamePage = document.getElementById('game-page');
+const gameGrid = document.getElementById('game-grid');
+const overlay = document.getElementById('overlay');
+const player = document.getElementById('game-player');
+
+// Unlock games
+trigger.onclick = () => {
+    mathPage.classList.add('hidden');
+    gamePage.classList.remove('hidden');
+    render();
+};
+
+function render() {
+    gameGrid.innerHTML = '';
+    games.forEach(g => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<h4>${g.title}</h4>`;
+        div.onclick = () => {
+            player.src = g.url;
+            overlay.classList.remove('hidden');
+        };
+        gameGrid.appendChild(div);
+    });
+}
+
+// THE PANIC KEY (ESC)
+window.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+        overlay.classList.add('hidden');
+        gamePage.classList.add('hidden');
+        mathPage.classList.remove('hidden');
+        player.src = ''; // Stops the game
+        document.title = "iH Match | Semester 2 Resources";
+    }
+});
