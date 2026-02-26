@@ -42,3 +42,11 @@ window.addEventListener('keydown', (e) => {
         document.title = "iH Match | Semester 2 Resources";
     }
 });
+const games = [
+    { title: "Slope", url: "https://kdata1.com/2020/05/slope/" },
+    { title: "Retro Bowl", url: "https://game316046.konggames.com/gamepro/316046/2/index.html" },
+    { title: "1v1.LOL", url: "https://1v1.lol/" },
+    { title: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/" },
+    { title: "Minecraft Classic", url: "https://classic.minecraft.net/" },
+    { title: "Tetris", url: "https://tetris.com/play-tetris" }
+];
