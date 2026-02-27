@@ -1,5 +1,4 @@
 window.onload = function() {
-    // Both secret words
     const mathTrigger = document.getElementById('secret-math');
     const readingTrigger = document.getElementById('secret-reading');
     
@@ -11,24 +10,37 @@ window.onload = function() {
         { title: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/" }
     ];
 
-    // Function to build and show the menu
     function openPortal() {
         document.body.innerHTML = '';
-        document.body.style.background = "#0b0e14";
-        document.body.style.margin = "0";
+        document.body.style.background = "white"; // Error pages are usually white
+        document.body.style.fontFamily = "sans-serif";
+        document.body.style.padding = "50px";
 
-        let menuHTML = `
-            <div style="padding:40px; color:white; font-family:sans-serif; text-align:center;">
-                <h2 style="color:#38bdf8;">Academic Resource Portal</h2>
-                <div id="game-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:15px; max-width:600px; margin:30px auto;"></div>
+        // THE FAKE 404 ERROR PAGE
+        let errorHTML = `
+            <div style="max-width: 600px; margin: auto;">
+                <h1 style="font-size: 50px; color: #333; margin-bottom: 10px;">404.</h1>
+                <p style="font-size: 18px; color: #666;"><b>The requested URL was not found on this server.</b></p>
+                <p style="font-size: 14px; color: #999;">That’s all we know.</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+                
+                <div id="hidden-menu" style="opacity: 0.05;"> 
+                    <p style="color: #ccc; font-size: 10px;">Debug_Logs_v4.0.2</p>
+                    <div id="game-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;"></div>
+                </div>
             </div>
         `;
-        document.body.innerHTML = menuHTML;
+        document.body.innerHTML = errorHTML;
+
+        // Make the menu show up when you hover over the bottom of the error page
+        const menu = document.getElementById('hidden-menu');
+        menu.onmouseover = () => menu.style.opacity = "1";
+        menu.onmouseout = () => menu.style.opacity = "0.05";
 
         const grid = document.getElementById('game-grid');
         games.forEach(game => {
             const btn = document.createElement('div');
-            btn.style.cssText = "background:#1c2331; padding:20px; border-radius:8px; cursor:pointer; border:1px solid #2d3748; font-weight:bold;";
+            btn.style.cssText = "padding:10px; border:1px solid #eee; cursor:pointer; font-size: 12px; color: #666; text-align:center;";
             btn.innerText = game.title;
             btn.onclick = () => launchGame(game.url);
             grid.appendChild(btn);
@@ -44,7 +56,6 @@ window.onload = function() {
         document.title = "Academic_Reference_Index.pdf"; 
     }
 
-    // Set up both triggers
     if(mathTrigger) mathTrigger.onclick = openPortal;
     if(readingTrigger) readingTrigger.onclick = openPortal;
 };
