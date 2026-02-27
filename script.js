@@ -1,33 +1,37 @@
-const secretTrigger = document.getElementById('secret-trigger');
-const gameUrl = "https://chvin.github.io/react-tetris/"; 
+// 1. Verify the script is loaded
+console.log("iH Match System: Online");
 
-secretTrigger.onclick = function() {
-    // 1. Wipe the math page content immediately
-    document.body.innerHTML = '';
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
-    document.body.style.overflow = "hidden";
+// 2. Wait for the page to fully load before looking for the button
+window.onload = function() {
+    const secretTrigger = document.getElementById('secret-trigger');
+    const gameUrl = "https://chvin.github.io/react-tetris/"; 
 
-    // 2. Create the game frame
-    let iframe = document.createElement('iframe');
-    iframe.src = gameUrl;
-    iframe.style.position = "fixed";
-    iframe.style.top = "0";
-    iframe.style.left = "0";
-    iframe.style.width = "100vw";
-    iframe.style.height = "100vh";
-    iframe.style.border = "none";
-    
-    // 3. Inject the game
-    document.body.appendChild(iframe);
+    if (secretTrigger) {
+        secretTrigger.onclick = function() {
+            // Test Alert: If you see this, the button works!
+            alert("Loading Resource Portal...");
 
-    // 4. Update the Tab Title to look like a boring file
-    document.title = "Local_Resource_Index.pdf";
+            // Wipe page and inject game
+            document.body.innerHTML = '';
+            document.body.style.margin = "0";
+            
+            let iframe = document.createElement('iframe');
+            iframe.src = gameUrl;
+            iframe.style.width = "100vw";
+            iframe.style.height = "100vh";
+            iframe.style.border = "none";
+            
+            document.body.appendChild(iframe);
+            document.title = "Local_Resource_Index.pdf";
+        };
+    } else {
+        console.error("Error: Could not find the secret-trigger element.");
+    }
 };
 
-// PANIC KEY: Press 'Escape' to go back to math
-window.addEventListener('keydown', (e) => {
+// PANIC KEY: ESC
+window.onkeydown = function(e) {
     if (e.key === "Escape") {
-        location.reload(); // This instantly reloads the math page
+        location.reload();
     }
-});
+};
