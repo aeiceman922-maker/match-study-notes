@@ -1,58 +1,55 @@
 window.onload = function() {
     const secretTrigger = document.getElementById('secret-trigger');
+    const mathPage = document.getElementById('math-page');
     
-    // Add your game links here!
     const games = [
         { title: "Tetris", url: "https://chvin.github.io/react-tetris/" },
         { title: "Slope", url: "https://kdata1.com/2020/05/slope/" },
         { title: "Retro Bowl", url: "https://game316046.konggames.com/gamepro/316046/2/index.html" },
-        { title: "Minecraft Classic", url: "https://classic.minecraft.net/" },
         { title: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/" }
     ];
 
     if (secretTrigger) {
         secretTrigger.onclick = function() {
-            // 1. Wipe math and setup the menu screen
+            // 1. COMPLETELY REMOVE THE MATH PAGE
+            mathPage.remove(); 
+            
+            // 2. Setup the Game Selection Screen
+            document.body.style.background = "#0b0e14";
             document.body.innerHTML = `
-                <div id="portal-bg" style="background:#0b0e14; color:white; min-height:100vh; padding:40px; font-family:sans-serif;">
-                    <h2 style="text-align:center; color:#38bdf8;">Resource Portal</h2>
-                    <div id="menu-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:20px; max-width:800px; margin:0 auto;"></div>
+                <div style="padding:40px; color:white; font-family:sans-serif;">
+                    <h2 style="text-align:center;">Resource Portal</h2>
+                    <div id="grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:15px;"></div>
                 </div>
             `;
-            
-            const grid = document.getElementById('menu-grid');
 
-            // 2. Create a button for each game
+            const grid = document.getElementById('grid');
+
+            // 3. Create the buttons
             games.forEach(game => {
-                const btn = document.createElement('div');
-                btn.style.cssText = "background:#1c2331; padding:20px; border-radius:10px; text-align:center; cursor:pointer; border:1px solid #2d3748;";
-                btn.innerHTML = `<strong>${game.title}</strong>`;
+                const card = document.createElement('div');
+                card.style.cssText = "background:#1c2331; padding:20px; border-radius:8px; text-align:center; cursor:pointer; border:1px solid #2d3748;";
+                card.innerHTML = `<strong>${game.title}</strong>`;
                 
-                // 3. When a game is clicked, launch the Iframe
-                btn.onclick = function() {
-                    launchGame(game.url);
+                card.onclick = function() {
+                    loadGame(game.url);
                 };
-                grid.appendChild(btn);
+                grid.appendChild(card);
             });
         };
     }
 };
 
-function launchGame(url) {
+function loadGame(url) {
     document.body.innerHTML = '';
-    document.body.style.overflow = "hidden";
-    
-    let iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.style.cssText = "position:fixed; top:0; left:0; width:100vw; height:100vh; border:none;";
-    
-    document.body.appendChild(iframe);
+    const frame = document.createElement('iframe');
+    frame.src = url;
+    frame.style.cssText = "position:fixed; top:0; left:0; width:100vw; height:100vh; border:none;";
+    document.body.appendChild(frame);
     document.title = "Local_Resource_Index.pdf";
 }
 
-// PANIC KEY: ESC (Returns to Math)
+// PANIC KEY: ESC
 window.onkeydown = function(e) {
-    if (e.key === "Escape") {
-        location.reload();
-    }
+    if (e.key === "Escape") { location.reload(); }
 };
