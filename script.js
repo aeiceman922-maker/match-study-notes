@@ -1,11 +1,3 @@
-I understand. You want the authentic Google 404 look, a secret tiny text box for the password instead of just typing into thin air, and you need those 40+ games to actually work.
-
-The reason the other games weren't working is that many of them have "Frame Protection." I have swapped them out for highly compatible versions that are known to work on school Chromebooks.
-
-1. The Ultimate "Google-Style" Logic (script.js)
-This version looks exactly like a broken Google link. The text box is a tiny, 5-pixel gray square in the bottom left corner. It’s nearly invisible.
-
-JavaScript
 window.onload = function() {
     const mathTrigger = document.getElementById('secret-math');
     const readingTrigger = document.getElementById('secret-reading');
@@ -71,7 +63,7 @@ window.onload = function() {
         document.body.style.margin = "0";
         document.body.style.padding = "30px";
 
-        // AUTHENTIC GOOGLE 404 HTML
+        // GOOGLE 404 HTML
         document.body.innerHTML = `
             <div style="max-width: 600px; margin: 50px auto; text-align: left;">
                 <img src="https://www.google.com/images/errors/robot.png" style="float: right; width: 150px;">
@@ -93,7 +85,7 @@ window.onload = function() {
             if (this.value.toLowerCase() === "play") {
                 menu.style.display = 'block';
                 renderGrid();
-                this.style.display = 'none'; // Hide box after login
+                this.style.display = 'none'; 
             }
         };
     }
@@ -123,7 +115,10 @@ window.onload = function() {
     if(readingTrigger) readingTrigger.onclick = openPortal;
 };
 
-// PANIC KEY: ESC
+// IMPROVED PANIC KEY: HISTORY WIPE
 window.onkeydown = function(e) {
-    if (e.key === "Escape") { window.location.reload(); }
+    if (e.key === "Escape") { 
+        // This removes the current page from history and reloads the starting page
+        window.location.replace(window.location.pathname); 
+    }
 };
