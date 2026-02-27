@@ -83,4 +83,3 @@ window.onkeydown = function(e) {
         window.location.replace(window.location.origin + window.location.pathname);
     }
 };
-Why it wasn't working (and how this fixes it):
